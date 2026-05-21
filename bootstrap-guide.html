@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bootstrap — Визуальный справочник</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a24;
+  --surface3: #22222f;
+  --accent: #7fff00;
+  --accent2: #00fa9a;
+  --accent3: #00cfff;
+  --text: #e8e8f0;
+  --text2: #9090a8;
+  --border: #2a2a3a;
+  --code-bg: #0d0d14;
+  --radius: 12px;
+  --font-display: 'Unbounded', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ── HEADER ── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+  text-decoration: none;
+}
+
+.logo span { color: var(--text2); font-weight: 400; }
+
+nav { display: flex; gap: 2px; }
+
+nav a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+nav a:hover { color: var(--accent); background: rgba(127,255,0,0.08); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(127,255,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127,255,0,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(127,255,0,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; text-align: center; max-width: 800px; }
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(127,255,0,0.1);
+  border: 1px solid rgba(127,255,0,0.3);
+  color: var(--accent);
+  font-size: 11px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 .highlight {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1 .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+}
+
+.hero p {
+  color: var(--text2);
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
+}
+
+.hero-stats {
+  display: flex; gap: 3rem; justify-content: center;
+  margin-top: 3rem;
+}
+
+.stat { text-align: center; }
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  display: block;
+}
+
+.stat-label { color: var(--text2); font-size: 11px; letter-spacing: 1px; }
+
+/* ── SECTIONS ── */
+.section {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 1rem;
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(127,255,0,0.1);
+  border: 1px solid rgba(127,255,0,0.2);
+  padding: 2px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ── DEMO BLOCK ── */
+.demo-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  transition: border-color 0.2s;
+}
+
+.demo-block:hover { border-color: rgba(127,255,0,0.3); }
+
+.demo-label {
+  padding: 10px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text2);
+  display: flex; align-items: center; justify-content: space-between;
+  letter-spacing: 0.5px;
+}
+
+.demo-label .tag {
+  background: rgba(0,250,154,0.1);
+  border: 1px solid rgba(0,250,154,0.2);
+  color: var(--accent2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+.demo-preview {
+  padding: 2rem;
+  background: #fff;
+  min-height: 80px;
+}
+
+.demo-code {
+  background: var(--code-bg);
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+}
+
+.demo-code pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: #cdd6f4;
+  white-space: pre;
+}
+
+/* Syntax highlighting */
+.kw { color: #cba6f7; }  /* keywords */
+.cl { color: #89dceb; }  /* class names */
+.st { color: #a6e3a1; }  /* strings */
+.tg { color: #89b4fa; }  /* tags */
+.cm { color: #585b70; }  /* comments */
+.at { color: #fab387; }  /* attributes */
+
+/* ── GRID DEMO ── */
+.grid-visual {
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.grid-row {
+  display: flex; gap: 6px;
+}
+
+.grid-col {
+  background: #7fff00;
+  border-radius: 4px;
+  padding: 10px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+  font-family: monospace;
+  transition: transform 0.15s;
+}
+
+.grid-col:hover { transform: scaleY(1.08); }
+
+.col-12 { flex: 12; }
+.col-9  { flex: 9; }
+.col-6  { flex: 6; }
+.col-4  { flex: 4; }
+.col-3  { flex: 3; }
+
+.grid-col.alt { background: #00fa9a; }
+.grid-col.alt2 { background: #00cfff; }
+.grid-col.sidebar { background: #ffb347; }
+
+/* ── SPACING DEMO ── */
+.spacing-demo {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start;
+}
+
+.spacing-box {
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: monospace;
+  color: #495057;
+  text-align: center;
+  position: relative;
+}
+
+.spacing-inner {
+  background: #7fff00;
+  color: #000;
+  font-weight: 700;
+  font-size: 11px;
+  font-family: monospace;
+  border-radius: 3px;
+}
+
+/* ── COLOR SWATCHES ── */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.swatch {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: transform 0.2s;
+}
+
+.swatch:hover { transform: translateY(-3px); }
+
+.swatch-color {
+  height: 60px;
+}
+
+.swatch-info {
+  padding: 8px 10px;
+  background: var(--surface2);
+  font-size: 11px;
+}
+
+.swatch-name { color: var(--text); font-weight: 700; }
+.swatch-class { color: var(--text2); font-family: var(--font-mono); margin-top: 2px; }
+
+/* ── BUTTON GALLERY ── */
+.btn-gallery {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+
+/* ── TABLE DEMO ── */
+.table-demo-wrap {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  background: #fff;
+}
+
+/* ── NAVBAR DEMO ── */
+.navbar-demo {
+  background: #212529;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+
+.navbar-demo .brand {
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.navbar-demo .links {
+  display: flex; gap: 16px;
+}
+
+.navbar-demo .links a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.navbar-demo .links a:hover { color: #fff; }
+
+.navbar-demo .btn-nav {
+  background: #7fff00;
+  color: #000;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ── CARD DEMO ── */
+.card-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.card-demo {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.card-demo:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+.card-demo-img {
+  height: 100px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem;
+}
+
+.card-demo-body { padding: 14px; }
+
+.card-demo-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #212529;
+  margin-bottom: 4px;
+}
+
+.card-demo-text {
+  font-size: 12px;
+  color: #6c757d;
+  margin-bottom: 12px;
+}
+
+.card-demo-btn {
+  display: block;
+  text-align: center;
+  background: #0d6efd;
+  color: #fff;
+  padding: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ── FORM DEMO ── */
+.form-demo {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.form-demo label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  color: #212529;
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.form-demo label:first-child { margin-top: 0; }
+
+.form-demo input,
+.form-demo select,
+.form-demo textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #212529;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.form-demo input:focus,
+.form-demo select:focus,
+.form-demo textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+}
+
+.form-demo .form-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+
+.form-demo .submit-row {
+  margin-top: 20px;
+  display: flex; gap: 10px;
+}
+
+.form-demo .btn-submit {
+  background: #198754;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.form-demo .btn-cancel {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* ── ALERTS ── */
+.alerts-demo { display: flex; flex-direction: column; gap: 10px; padding: 16px; background: #fff; border-radius: 8px; }
+
+.alert-item {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.alert-item::before { font-size: 16px; }
+
+.alert-success { background: #d1e7dd; color: #0a3622; border: 1px solid #a3cfbb; }
+.alert-success::before { content: '✓'; }
+.alert-danger  { background: #f8d7da; color: #58151c; border: 1px solid #f1aeb5; }
+.alert-danger::before { content: '✕'; }
+.alert-warning { background: #fff3cd; color: #664d03; border: 1px solid #ffe69c; }
+.alert-warning::before { content: '⚠'; }
+.alert-info    { background: #cff4fc; color: #055160; border: 1px solid #9eeaf9; }
+.alert-info::before { content: 'ℹ'; }
+
+/* ── UTILITY DEMO ── */
+.utility-demo {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.util-row {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px;
+}
+
+.util-label {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: #d63384;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.util-result {
+  font-size: 12px;
+  color: #495057;
+}
+
+/* ── CHEATSHEET ── */
+.cheatsheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 2rem;
+}
+
+.cheat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.cheat-card:hover {
+  border-color: rgba(127,255,0,0.4);
+  transform: translateY(-2px);
+}
+
+.cheat-title {
+  background: var(--surface2);
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cheat-list {
+  padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.cheat-item {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 8px;
+}
+
+.cheat-code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent2);
+  background: rgba(0,250,154,0.06);
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.cheat-desc {
+  font-size: 11px;
+  color: var(--text2);
+  text-align: right;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--text2);
+  font-size: 12px;
+}
+
+footer .accent { color: var(--accent); }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0;
+}
+
+/* ── SCROLL INDICATOR ── */
+.scroll-indicator {
+  position: fixed;
+  top: 60px; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%;
+  z-index: 99;
+  transition: width 0.1s;
+}
+
+/* ── COPY BUTTON ── */
+.copy-btn {
+  background: rgba(127,255,0,0.1);
+  border: 1px solid rgba(127,255,0,0.2);
+  color: var(--accent);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.copy-btn:hover { background: rgba(127,255,0,0.2); }
+.copy-btn.copied { background: rgba(0,250,154,0.2); border-color: var(--accent2); color: var(--accent2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { display: none; }
+  .card-demo-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  .cheatsheet { grid-template-columns: 1fr; }
+  .form-demo .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-indicator" id="scrollBar"></div>
+
+<!-- HEADER -->
+<header>
+  <a href="#top" class="logo">BOOT<span>STRAP</span> //GUIDE</a>
+  <nav>
+    <a href="#grid">Сетка</a>
+    <a href="#spacing">Отступы</a>
+    <a href="#colors">Цвета</a>
+    <a href="#buttons">Кнопки</a>
+    <a href="#tables">Таблицы</a>
+    <a href="#forms">Формы</a>
+    <a href="#components">Компоненты</a>
+    <a href="#cheatsheet">Шпаргалка</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">// ВИЗУАЛЬНЫЙ СПРАВОЧНИК</div>
+    <h1>Bootstrap<br><span class="highlight">5</span> на практике</h1>
+    <p>Все ключевые концепции с живыми примерами, кодом и визуализацией. Для подготовки к демоэкзамену.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">8</span>
+        <span class="stat-label">РАЗДЕЛОВ</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">30+</span>
+        <span class="stat-label">ПРИМЕРОВ</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">ПРАКТИКА</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     1. СЕТКА
+════════════════════════════════ -->
+<section class="section" id="grid">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Сетка — Grid System</h2>
+  </div>
+
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Страница = 12 колонок. Структура: container → row → col-*</span>
+      <span class="tag">ОСНОВА</span>
+    </div>
+    <div class="demo-preview">
+      <div class="grid-visual">
+        <div class="grid-row">
+          <div class="grid-col col-12">col-12 (вся ширина)</div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-col col-6">col-6</div>
+          <div class="grid-col col-6 alt">col-6</div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-col col-4">col-4</div>
+          <div class="grid-col col-4 alt">col-4</div>
+          <div class="grid-col col-4 alt2">col-4</div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-col col-3">col-3</div>
+          <div class="grid-col col-3 alt">col-3</div>
+          <div class="grid-col col-3 alt2">col-3</div>
+          <div class="grid-col col-3 sidebar">col-3</div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-col col-3 sidebar">col-3 (сайдбар)</div>
+          <div class="grid-col col-9 alt">col-9 (контент)</div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="cm">&lt;!-- Правило: сумма col-* в row всегда = 12 --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"container"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"row"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"col-3"</span><span class="tg">&gt;</span>Сайдбар<span class="tg">&lt;/div&gt;</span>   <span class="cm">&lt;!-- 3 --&gt;</span>
+    <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"col-9"</span><span class="tg">&gt;</span>Контент<span class="tg">&lt;/div&gt;</span>    <span class="cm">&lt;!-- 9 --&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>                                  <span class="cm">&lt;!-- итого: 12 ✓ --&gt;</span>
+<span class="tg">&lt;/div&gt;</span></pre>
+    </div>
+  </div>
+
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>container vs container-fluid</span>
+      <span class="tag">КОНТЕЙНЕРЫ</span>
+    </div>
+    <div class="demo-preview">
+      <div style="margin-bottom:8px;">
+        <div style="background:#7fff00;padding:10px 16px;border-radius:6px;font-weight:700;font-size:12px;color:#000;max-width:960px;margin:0 auto;text-align:center;">container — фиксированная ширина, по центру</div>
+      </div>
+      <div style="background:#00fa9a;padding:10px 16px;border-radius:6px;font-weight:700;font-size:12px;color:#000;text-align:center;">container-fluid — на всю ширину экрана</div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"container"</span><span class="tg">&gt;</span>       <span class="cm">&lt;!-- макс. ширина 1140px, центр --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"container-fluid"</span><span class="tg">&gt;</span>  <span class="cm">&lt;!-- 100% ширины --&gt;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     2. ОТСТУПЫ
+════════════════════════════════ -->
+<section class="section" id="spacing">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Отступы — Spacing</h2>
+  </div>
+
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Формула: {m/p}{t/b/s/e/x/y}-{0-5}</span>
+      <span class="tag">MARGIN & PADDING</span>
+    </div>
+    <div class="demo-preview">
+      <div class="spacing-demo">
+        <div>
+          <div style="background:#f8f9fa;border:2px dashed #dee2e6;border-radius:6px;padding:32px;display:inline-block;">
+            <div style="background:#7fff00;padding:12px 20px;border-radius:4px;font-weight:700;font-size:12px;color:#000;">p-4</div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:#666;font-family:monospace;text-align:center;">padding: 1.5rem</div>
+        </div>
+        <div>
+          <div style="background:#f8f9fa;border:2px dashed #dee2e6;border-radius:6px;padding:6px;display:inline-block;">
+            <div style="background:#00fa9a;padding:12px 20px;border-radius:4px;font-weight:700;font-size:12px;color:#000;">p-1</div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:#666;font-family:monospace;text-align:center;">padding: 0.25rem</div>
+        </div>
+        <div>
+          <div style="margin-top:40px;background:#7fff00;padding:12px 20px;border-radius:4px;font-weight:700;font-size:12px;color:#000;">mt-5</div>
+          <div style="margin-top:6px;font-size:11px;color:#666;font-family:monospace;text-align:center;">margin-top: 3rem</div>
+        </div>
+        <div>
+          <div style="padding:12px 60px;background:#00cfff;border-radius:4px;font-weight:700;font-size:12px;color:#000;">px-5</div>
+          <div style="margin-top:6px;font-size:11px;color:#666;font-family:monospace;text-align:center;">padding left+right</div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="cm">&lt;!-- m = margin, p = padding --&gt;</span>
+<span class="cm">&lt;!-- t=top, b=bottom, s=left, e=right, x=горизонталь, y=вертикаль --&gt;</span>
+<span class="cm">&lt;!-- Размеры: 0=0px, 1=4px, 2=8px, 3=16px, 4=24px, 5=48px --&gt;</span>
+
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"mt-3"</span><span class="tg">&gt;</span>    <span class="cm">&lt;!-- margin-top: 1rem --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"mb-4"</span><span class="tg">&gt;</span>    <span class="cm">&lt;!-- margin-bottom: 1.5rem --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"p-3"</span><span class="tg">&gt;</span>     <span class="cm">&lt;!-- padding: 1rem со всех сторон --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"px-4"</span><span class="tg">&gt;</span>    <span class="cm">&lt;!-- padding: слева и справа --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"py-2"</span><span class="tg">&gt;</span>    <span class="cm">&lt;!-- padding: сверху и снизу --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"ms-auto"</span><span class="tg">&gt;</span> <span class="cm">&lt;!-- margin-left: auto → прижать вправо --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"m-0"</span><span class="tg">&gt;</span>     <span class="cm">&lt;!-- убрать все отступы --&gt;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     3. ЦВЕТА
+════════════════════════════════ -->
+<section class="section" id="colors">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Цвета — Colors</h2>
+  </div>
+
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Встроенная палитра Bootstrap</span>
+      <span class="tag">SWATCHES</span>
+    </div>
+    <div class="demo-preview">
+      <div class="color-grid">
+        <div class="swatch"><div class="swatch-color" style="background:#0d6efd;"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-class">bg-primary / text-primary</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#198754;"></div><div class="swatch-info"><div class="swatch-name">Success</div><div class="swatch-class">bg-success / text-success</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#dc3545;"></div><div class="swatch-info"><div class="swatch-name">Danger</div><div class="swatch-class">bg-danger / text-danger</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#ffc107;"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-class">bg-warning / text-warning</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#0dcaf0;"></div><div class="swatch-info"><div class="swatch-name">Info</div><div class="swatch-class">bg-info / text-info</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#6c757d;"></div><div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-class">bg-secondary</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#212529;"></div><div class="swatch-info"><div class="swatch-name">Dark</div><div class="swatch-class">bg-dark / text-dark</div></div></div>
+        <div class="swatch"><div class="swatch-color" style="background:#f8f9fa;border:1px solid #dee2e6;"></div><div class="swatch-info"><div class="swatch-name">Light</div><div class="swatch-class">bg-light / text-muted</div></div></div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="cm">&lt;!-- Цвет текста --&gt;</span>
+<span class="tg">&lt;p</span> <span class="at">class=</span><span class="st">"text-primary"</span><span class="tg">&gt;</span>Синий<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p</span> <span class="at">class=</span><span class="st">"text-danger"</span><span class="tg">&gt;</span>Красный<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p</span> <span class="at">class=</span><span class="st">"text-success"</span><span class="tg">&gt;</span>Зелёный<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p</span> <span class="at">class=</span><span class="st">"text-muted"</span><span class="tg">&gt;</span>Серый<span class="tg">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- Фон --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"bg-primary text-white"</span><span class="tg">&gt;</span>Синий фон<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"bg-success text-white"</span><span class="tg">&gt;</span>Зелёный фон<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"bg-danger  text-white"</span><span class="tg">&gt;</span>Красный фон<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"bg-dark    text-white"</span><span class="tg">&gt;</span>Тёмный фон<span class="tg">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Свой цвет из ТЗ — только через CSS --&gt;</span>
+<span class="tg">&lt;style&gt;</span>
+  <span class="cl">.bg-sale</span> { <span class="at">background-color</span>: <span class="st">#2E8B57</span>; <span class="at">color</span>: <span class="st">white</span>; }
+<span class="tg">&lt;/style&gt;</span>
+<span class="tg">&lt;tr</span> <span class="at">class=</span><span class="st">"bg-sale"</span><span class="tg">&gt;</span>...<span class="tg">&lt;/tr&gt;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     4. КНОПКИ
+════════════════════════════════ -->
+<section class="section" id="buttons">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Кнопки — Buttons</h2>
+  </div>
+
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Стили и размеры</span>
+      <span class="tag">BTN</span>
+    </div>
+    <div class="demo-preview">
+      <div style="display:flex;flex-direction:column;gap:16px;padding:8px;">
+        <div>
+          <div style="font-size:11px;color:#666;margin-bottom:8px;font-family:monospace;">Заливка (btn-*)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <button style="background:#0d6efd;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-primary</button>
+            <button style="background:#198754;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-success</button>
+            <button style="background:#dc3545;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-danger</button>
+            <button style="background:#ffc107;color:#000;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-warning</button>
+            <button style="background:#6c757d;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-secondary</button>
+            <button style="background:#212529;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-dark</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#666;margin-bottom:8px;font-family:monospace;">Контур (btn-outline-*)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <button style="background:transparent;color:#0d6efd;border:1.5px solid #0d6efd;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-outline-primary</button>
+            <button style="background:transparent;color:#dc3545;border:1.5px solid #dc3545;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-outline-danger</button>
+            <button style="background:transparent;color:#198754;border:1.5px solid #198754;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;">btn-outline-success</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#666;margin-bottom:8px;font-family:monospace;">Размеры (btn-sm / btn-lg)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+            <button style="background:#0d6efd;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;">btn-sm</button>
+            <button style="background:#0d6efd;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:13px;cursor:pointer;">btn (обычный)</button>
+            <button style="background:#0d6efd;color:#fff;border:none;padding:12px 24px;border-radius:8px;font-size:16px;cursor:pointer;">btn-lg</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#666;margin-bottom:8px;font-family:monospace;">На всю ширину (w-100)</div>
+          <button style="background:#0d6efd;color:#fff;border:none;padding:10px;border-radius:6px;font-weight:600;font-size:13px;width:100%;cursor:pointer;">btn btn-primary w-100</button>
+        </div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="cm">&lt;!-- Заливка --&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-primary"</span><span class="tg">&gt;</span>Синяя<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-success"</span><span class="tg">&gt;</span>Зелёная<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-danger"</span><span class="tg">&gt;</span>Красная<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-warning"</span><span class="tg">&gt;</span>Жёлтая<span class="tg">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- Контур --&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-outline-primary"</span><span class="tg">&gt;</span>Контур<span class="tg">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- Размеры --&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-primary btn-sm"</span><span class="tg">&gt;</span>Маленькая<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-primary btn-lg"</span><span class="tg">&gt;</span>Большая<span class="tg">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- Ссылка как кнопка --&gt;</span>
+<span class="tg">&lt;a</span> <span class="at">href=</span><span class="st">"add.php"</span> <span class="at">class=</span><span class="st">"btn btn-success"</span><span class="tg">&gt;</span>+ Добавить<span class="tg">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- На всю ширину --&gt;</span>
+<span class="tg">&lt;button</span> <span class="at">class=</span><span class="st">"btn btn-primary w-100"</span><span class="tg">&gt;</span>Войти<span class="tg">&lt;/button&gt;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     5. ТАБЛИЦЫ
+════════════════════════════════ -->
+<section class="section" id="tables">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Таблицы — Tables</h2>
+  </div>
+
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>table-bordered + table-hover + условный фон строки (скидка &gt; 15%)</span>
+      <span class="tag">TABLE</span>
+    </div>
+    <div class="demo-preview" style="padding:0;">
+      <div class="table-demo-wrap">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:sans-serif;">
+          <thead style="background:#212529;color:#fff;">
+            <tr>
+              <th style="padding:10px 14px;text-align:left;font-weight:600;">Артикул</th>
+              <th style="padding:10px 14px;text-align:left;font-weight:600;">Название</th>
+              <th style="padding:10px 14px;text-align:left;font-weight:600;">Цена</th>
+              <th style="padding:10px 14px;text-align:left;font-weight:600;">Скидка</th>
+              <th style="padding:10px 14px;text-align:left;font-weight:600;">Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #dee2e6;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">
+              <td style="padding:10px 14px;color:#495057;">А112Т4</td>
+              <td style="padding:10px 14px;">Ботинки Nike</td>
+              <td style="padding:10px 14px;">4 990 ₽</td>
+              <td style="padding:10px 14px;"><span style="background:#d1e7dd;color:#0a3622;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">3%</span></td>
+              <td style="padding:10px 14px;"><button style="background:#ffc107;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;margin-right:4px;">Изменить</button><button style="background:#dc3545;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">Удалить</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #dee2e6;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">
+              <td style="padding:10px 14px;color:#495057;">D364R4</td>
+              <td style="padding:10px 14px;">Туфли замшевые</td>
+              <td style="padding:10px 14px;">12 400 ₽</td>
+              <td style="padding:10px 14px;"><span style="background:#d1e7dd;color:#0a3622;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;">10%</span></td>
+              <td style="padding:10px 14px;"><button style="background:#ffc107;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;margin-right:4px;">Изменить</button><button style="background:#dc3545;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">Удалить</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #dee2e6;background:#2E8B57;" onmouseover="this.style.background='#236b44'" onmouseout="this.style.background='#2E8B57'">
+              <td style="padding:10px 14px;color:#fff;">S326R5</td>
+              <td style="padding:10px 14px;color:#fff;font-weight:600;">Тапочки кожаные ⭐</td>
+              <td style="padding:10px 14px;color:#fff;">9 900 ₽</td>
+              <td style="padding:10px 14px;"><span style="background:rgba(255,255,255,0.2);color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">17% 🔥</span></td>
+              <td style="padding:10px 14px;"><button style="background:#ffc107;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;margin-right:4px;">Изменить</button><button style="background:#dc3545;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">Удалить</button></td>
+            </tr>
+            <tr style="background:#2E8B57;" onmouseover="this.style.background='#236b44'" onmouseout="this.style.background='#2E8B57'">
+              <td style="padding:10px 14px;color:#fff;">M542T5</td>
+              <td style="padding:10px 14px;color:#fff;font-weight:600;">Кроссовки TOFA ⭐</td>
+              <td style="padding:10px 14px;color:#fff;">2 800 ₽</td>
+              <td style="padding:10px 14px;"><span style="background:rgba(255,255,255,0.2);color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">18% 🔥</span></td>
+              <td style="padding:10px 14px;"><button style="background:#ffc107;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;margin-right:4px;">Изменить</button><button style="background:#dc3545;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">Удалить</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding:8px 14px;background:#f8f9fa;border-top:1px solid #dee2e6;font-size:11px;color:#6c757d;">
+          🟩 Строки с зелёным фоном — скидка &gt; 15% (класс <code>.bg-sale</code>)
+        </div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="tg">&lt;table</span> <span class="at">class=</span><span class="st">"table table-bordered table-hover"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;thead</span> <span class="at">class=</span><span class="st">"table-dark"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;tr&gt;&lt;th&gt;</span>Артикул<span class="tg">&lt;/th&gt;&lt;th&gt;</span>Название<span class="tg">&lt;/th&gt;&lt;th&gt;</span>Скидка<span class="tg">&lt;/th&gt;&lt;/tr&gt;</span>
+  <span class="tg">&lt;/thead&gt;</span>
+  <span class="tg">&lt;tbody&gt;</span>
+    <span class="cm">&lt;?php foreach ($products as $p): ?&gt;</span>
+
+    <span class="cm">&lt;!-- Если скидка &gt; 15% → зелёный фон строки --&gt;</span>
+    <span class="tg">&lt;tr</span> <span class="at">class=</span><span class="st">"&lt;?= $p['discount'] &gt; 15 ? 'bg-sale' : '' ?&gt;"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;td&gt;</span><span class="cm">&lt;?= $p['article'] ?&gt;</span><span class="tg">&lt;/td&gt;</span>
+      <span class="tg">&lt;td&gt;</span><span class="cm">&lt;?= $p['name'] ?&gt;</span><span class="tg">&lt;/td&gt;</span>
+      <span class="tg">&lt;td&gt;</span><span class="cm">&lt;?= $p['discount'] ?&gt;</span>%<span class="tg">&lt;/td&gt;</span>
+    <span class="tg">&lt;/tr&gt;</span>
+
+    <span class="cm">&lt;?php endforeach; ?&gt;</span>
+  <span class="tg">&lt;/tbody&gt;</span>
+<span class="tg">&lt;/table&gt;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     6. ФОРМЫ
+════════════════════════════════ -->
+<section class="section" id="forms">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Формы — Forms</h2>
+  </div>
+
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Форма добавления товара — как на экзамене</span>
+      <span class="tag">FORM</span>
+    </div>
+    <div class="demo-preview" style="padding:0;">
+      <div class="form-demo">
+        <div class="form-row">
+          <div>
+            <label>Артикул товара</label>
+            <input type="text" placeholder="А112Т4">
+          </div>
+          <div>
+            <label>Название товара</label>
+            <input type="text" placeholder="Ботинки">
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Цена (₽)</label>
+            <input type="number" placeholder="4990">
+          </div>
+          <div>
+            <label>Скидка (%)</label>
+            <input type="number" placeholder="0">
+          </div>
+        </div>
+        <label>Категория</label>
+        <select>
+          <option>Женская обувь</option>
+          <option>Мужская обувь</option>
+        </select>
+        <label>Поставщик</label>
+        <select>
+          <option>Kari</option>
+          <option>Обувь для вас</option>
+        </select>
+        <label>Описание товара</label>
+        <textarea rows="3" placeholder="Введите описание..."></textarea>
+        <div class="submit-row">
+          <button class="btn-submit">✓ Сохранить товар</button>
+          <button class="btn-cancel">Отмена</button>
+        </div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="tg">&lt;form</span> <span class="at">action=</span><span class="st">"save.php"</span> <span class="at">method=</span><span class="st">"POST"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"mb-3"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;label</span> <span class="at">class=</span><span class="st">"form-label"</span><span class="tg">&gt;</span>Название<span class="tg">&lt;/label&gt;</span>
+    <span class="tg">&lt;input</span> <span class="at">type=</span><span class="st">"text"</span> <span class="at">name=</span><span class="st">"name"</span> <span class="at">class=</span><span class="st">"form-control"</span> <span class="at">required</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>
+
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"row"</span><span class="tg">&gt;</span>          <span class="cm">&lt;!-- два поля рядом --&gt;</span>
+    <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"col-6 mb-3"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;label</span> <span class="at">class=</span><span class="st">"form-label"</span><span class="tg">&gt;</span>Цена<span class="tg">&lt;/label&gt;</span>
+      <span class="tg">&lt;input</span> <span class="at">type=</span><span class="st">"number"</span> <span class="at">name=</span><span class="st">"price"</span> <span class="at">class=</span><span class="st">"form-control"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;/div&gt;</span>
+    <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"col-6 mb-3"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;label</span> <span class="at">class=</span><span class="st">"form-label"</span><span class="tg">&gt;</span>Скидка %<span class="tg">&lt;/label&gt;</span>
+      <span class="tg">&lt;input</span> <span class="at">type=</span><span class="st">"number"</span> <span class="at">name=</span><span class="st">"discount"</span> <span class="at">class=</span><span class="st">"form-control"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>
+
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"mb-3"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;label</span> <span class="at">class=</span><span class="st">"form-label"</span><span class="tg">&gt;</span>Категория<span class="tg">&lt;/label&gt;</span>
+    <span class="tg">&lt;select</span> <span class="at">name=</span><span class="st">"category"</span> <span class="at">class=</span><span class="st">"form-select"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;option&gt;</span>Женская обувь<span class="tg">&lt;/option&gt;</span>
+      <span class="tg">&lt;option&gt;</span>Мужская обувь<span class="tg">&lt;/option&gt;</span>
+    <span class="tg">&lt;/select&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>
+
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"mb-3"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;label</span> <span class="at">class=</span><span class="st">"form-label"</span><span class="tg">&gt;</span>Описание<span class="tg">&lt;/label&gt;</span>
+    <span class="tg">&lt;textarea</span> <span class="at">name=</span><span class="st">"description"</span> <span class="at">class=</span><span class="st">"form-control"</span> <span class="at">rows=</span><span class="st">"3"</span><span class="tg">&gt;&lt;/textarea&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>
+
+  <span class="tg">&lt;button</span> <span class="at">type=</span><span class="st">"submit"</span> <span class="at">class=</span><span class="st">"btn btn-success"</span><span class="tg">&gt;</span>Сохранить<span class="tg">&lt;/button&gt;</span>
+  <span class="tg">&lt;a</span> <span class="at">href=</span><span class="st">"index.php"</span> <span class="at">class=</span><span class="st">"btn btn-secondary"</span><span class="tg">&gt;</span>Отмена<span class="tg">&lt;/a&gt;</span>
+<span class="tg">&lt;/form&gt;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     7. КОМПОНЕНТЫ
+════════════════════════════════ -->
+<section class="section" id="components">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2 class="section-title">Компоненты — Components</h2>
+  </div>
+
+  <!-- NAVBAR -->
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Навигационная панель (Navbar)</span>
+      <span class="tag">NAVBAR</span>
+    </div>
+    <div class="demo-preview" style="padding:16px;background:#f0f0f0;">
+      <div class="navbar-demo">
+        <span class="brand">🥿 ООО Обувь</span>
+        <div class="links">
+          <a href="#">Товары</a>
+          <a href="#">Заказы</a>
+        </div>
+        <button class="btn-nav">Выйти</button>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="tg">&lt;nav</span> <span class="at">class=</span><span class="st">"navbar navbar-dark bg-dark"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"container"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;a</span> <span class="at">class=</span><span class="st">"navbar-brand"</span> <span class="at">href=</span><span class="st">"index.php"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;img</span> <span class="at">src=</span><span class="st">"img/logo.png"</span> <span class="at">height=</span><span class="st">"40"</span> <span class="at">alt=</span><span class="st">"Логотип"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;/a&gt;</span>
+    <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"navbar-nav ms-auto d-flex flex-row gap-3"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;a</span> <span class="at">class=</span><span class="st">"nav-link text-white"</span> <span class="at">href=</span><span class="st">"products.php"</span><span class="tg">&gt;</span>Товары<span class="tg">&lt;/a&gt;</span>
+      <span class="tg">&lt;a</span> <span class="at">class=</span><span class="st">"nav-link text-white"</span> <span class="at">href=</span><span class="st">"logout.php"</span><span class="tg">&gt;</span>Выйти<span class="tg">&lt;/a&gt;</span>
+    <span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;/nav&gt;</span></pre>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Карточки товаров (Cards)</span>
+      <span class="tag">CARD</span>
+    </div>
+    <div class="demo-preview">
+      <div class="card-demo-grid">
+        <div class="card-demo">
+          <div class="card-demo-img" style="background:#fff3cd;">👟</div>
+          <div class="card-demo-body">
+            <div class="card-demo-title">Кроссовки Nike</div>
+            <div class="card-demo-text">Мужская обувь • Скидка 3%</div>
+            <div style="font-weight:700;color:#0d6efd;font-size:15px;margin-bottom:10px;">5 990 ₽</div>
+            <a href="#" class="card-demo-btn">Подробнее</a>
+          </div>
+        </div>
+        <div class="card-demo">
+          <div class="card-demo-img" style="background:#d1e7dd;">👞</div>
+          <div class="card-demo-body">
+            <div class="card-demo-title">Ботинки зимние</div>
+            <div class="card-demo-text">Женская обувь • Скидка 12%</div>
+            <div style="font-weight:700;color:#0d6efd;font-size:15px;margin-bottom:10px;">8 500 ₽</div>
+            <a href="#" class="card-demo-btn">Подробнее</a>
+          </div>
+        </div>
+        <div class="card-demo" style="border-color:#2E8B57;box-shadow:0 0 0 2px rgba(46,139,87,0.3);">
+          <div class="card-demo-img" style="background:#2E8B57;color:#fff;font-size:1rem;font-weight:700;">🔥 -18%</div>
+          <div class="card-demo-body">
+            <div class="card-demo-title">Кроссовки TOFA</div>
+            <div class="card-demo-text">Мужская обувь • <b style="color:#2E8B57;">Скидка 18%</b></div>
+            <div style="font-weight:700;color:#0d6efd;font-size:15px;margin-bottom:10px;">2 800 ₽</div>
+            <a href="#" class="card-demo-btn" style="background:#2E8B57;">Подробнее</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"row"</span><span class="tg">&gt;</span>
+  <span class="cm">&lt;?php foreach ($products as $p): ?&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"col-3 mb-4"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"card h-100"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;img</span> <span class="at">src=</span><span class="st">"img/&lt;?= $p['photo'] ?&gt;"</span> <span class="at">class=</span><span class="st">"card-img-top"</span><span class="tg">&gt;</span>
+      <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"card-body"</span><span class="tg">&gt;</span>
+        <span class="tg">&lt;h5</span> <span class="at">class=</span><span class="st">"card-title"</span><span class="tg">&gt;</span><span class="cm">&lt;?= $p['name'] ?&gt;</span><span class="tg">&lt;/h5&gt;</span>
+        <span class="tg">&lt;p</span> <span class="at">class=</span><span class="st">"card-text text-muted"</span><span class="tg">&gt;</span><span class="cm">&lt;?= $p['category'] ?&gt;</span><span class="tg">&lt;/p&gt;</span>
+        <span class="tg">&lt;p</span> <span class="at">class=</span><span class="st">"fw-bold text-primary"</span><span class="tg">&gt;</span><span class="cm">&lt;?= $p['price'] ?&gt;</span> ₽<span class="tg">&lt;/p&gt;</span>
+      <span class="tg">&lt;/div&gt;</span>
+      <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"card-footer"</span><span class="tg">&gt;</span>
+        <span class="tg">&lt;a</span> <span class="at">href=</span><span class="st">"view.php?id=&lt;?= $p['id'] ?&gt;"</span>
+           <span class="at">class=</span><span class="st">"btn btn-primary w-100 btn-sm"</span><span class="tg">&gt;</span>Подробнее<span class="tg">&lt;/a&gt;</span>
+      <span class="tg">&lt;/div&gt;</span>
+    <span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;/div&gt;</span>
+  <span class="cm">&lt;?php endforeach; ?&gt;</span>
+<span class="tg">&lt;/div&gt;</span></pre>
+    </div>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Алерты — сообщения для пользователя</span>
+      <span class="tag">ALERT</span>
+    </div>
+    <div class="demo-preview" style="padding:0;">
+      <div class="alerts-demo">
+        <div class="alert-item alert-success">Товар успешно добавлен в базу данных!</div>
+        <div class="alert-item alert-danger">Ошибка: неверный логин или пароль.</div>
+        <div class="alert-item alert-warning">Заполните все обязательные поля формы.</div>
+        <div class="alert-item alert-info">У вас нет прав для выполнения этого действия.</div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"alert alert-success"</span><span class="tg">&gt;</span>Успешно сохранено!<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"alert alert-danger"</span><span class="tg">&gt;</span>Ошибка!<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"alert alert-warning"</span><span class="tg">&gt;</span>Внимание!<span class="tg">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- В PHP — показывать только если есть сообщение --&gt;</span>
+<span class="cm">&lt;?php if (isset($_GET['success'])): ?&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"alert alert-success"</span><span class="tg">&gt;</span>Сохранено!<span class="tg">&lt;/div&gt;</span>
+<span class="cm">&lt;?php endif; ?&gt;</span></pre>
+    </div>
+  </div>
+
+  <!-- FLEXBOX -->
+  <div class="demo-block">
+    <div class="demo-label">
+      <span>Flexbox утилиты — d-flex, justify-content, align-items</span>
+      <span class="tag">FLEX</span>
+    </div>
+    <div class="demo-preview">
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <div style="font-size:11px;color:#666;font-family:monospace;margin-bottom:6px;">justify-content-between</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:#f8f9fa;padding:10px 16px;border-radius:6px;border:1px solid #dee2e6;">
+            <span style="font-weight:700;font-size:13px;">Список товаров</span>
+            <button style="background:#198754;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">+ Добавить</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#666;font-family:monospace;margin-bottom:6px;">justify-content-center + gap-2</div>
+          <div style="display:flex;justify-content:center;gap:8px;background:#f8f9fa;padding:10px;border-radius:6px;border:1px solid #dee2e6;">
+            <button style="background:#0d6efd;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;">Кнопка 1</button>
+            <button style="background:#198754;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;">Кнопка 2</button>
+            <button style="background:#6c757d;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;">Кнопка 3</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-code">
+      <pre><span class="cm">&lt;!-- Заголовок + кнопка по краям --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"d-flex justify-content-between align-items-center mb-3"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;h2&gt;</span>Список товаров<span class="tg">&lt;/h2&gt;</span>
+  <span class="tg">&lt;a</span> <span class="at">href=</span><span class="st">"add.php"</span> <span class="at">class=</span><span class="st">"btn btn-success"</span><span class="tg">&gt;</span>+ Добавить<span class="tg">&lt;/a&gt;</span>
+<span class="tg">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Кнопки рядом с зазором --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class=</span><span class="st">"d-flex gap-2"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;a</span> <span class="at">href=</span><span class="st">"edit.php"</span>   <span class="at">class=</span><span class="st">"btn btn-warning btn-sm"</span><span class="tg">&gt;</span>Изменить<span class="tg">&lt;/a&gt;</span>
+  <span class="tg">&lt;a</span> <span class="at">href=</span><span class="st">"delete.php"</span> <span class="at">class=</span><span class="st">"btn btn-danger  btn-sm"</span><span class="tg">&gt;</span>Удалить<span class="tg">&lt;/a&gt;</span>
+<span class="tg">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Прижать элемент вправо --&gt;</span>
+<span class="tg">&lt;span</span> <span class="at">class=</span><span class="st">"ms-auto"</span><span class="tg">&gt;</span>прижат вправо<span class="tg">&lt;/span&gt;</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     8. ШПАРГАЛКА
+════════════════════════════════ -->
+<section class="section" id="cheatsheet">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <h2 class="section-title">Шпаргалка — Cheatsheet</h2>
+  </div>
+
+  <div class="cheatsheet">
+    <div class="cheat-card">
+      <div class="cheat-title">// СЕТКА</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">container</span><span class="cheat-desc">центрированный блок</span></div>
+        <div class="cheat-item"><span class="cheat-code">container-fluid</span><span class="cheat-desc">на всю ширину</span></div>
+        <div class="cheat-item"><span class="cheat-code">row</span><span class="cheat-desc">строка сетки</span></div>
+        <div class="cheat-item"><span class="cheat-code">col-3/4/6/9/12</span><span class="cheat-desc">ширина колонки</span></div>
+        <div class="cheat-item"><span class="cheat-code">col</span><span class="cheat-desc">авто-ширина</span></div>
+      </div>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-title">// ОТСТУПЫ</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">mt-3 / mb-3</span><span class="cheat-desc">margin top/bottom</span></div>
+        <div class="cheat-item"><span class="cheat-code">ms-3 / me-3</span><span class="cheat-desc">margin left/right</span></div>
+        <div class="cheat-item"><span class="cheat-code">p-3 / px-3 / py-3</span><span class="cheat-desc">padding</span></div>
+        <div class="cheat-item"><span class="cheat-code">ms-auto</span><span class="cheat-desc">прижать вправо</span></div>
+        <div class="cheat-item"><span class="cheat-code">m-0 / p-0</span><span class="cheat-desc">убрать отступ</span></div>
+      </div>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-title">// КНОПКИ</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">btn btn-primary</span><span class="cheat-desc">синяя кнопка</span></div>
+        <div class="cheat-item"><span class="cheat-code">btn btn-success</span><span class="cheat-desc">зелёная</span></div>
+        <div class="cheat-item"><span class="cheat-code">btn btn-danger</span><span class="cheat-desc">красная</span></div>
+        <div class="cheat-item"><span class="cheat-code">btn btn-warning</span><span class="cheat-desc">жёлтая</span></div>
+        <div class="cheat-item"><span class="cheat-code">btn-sm / btn-lg</span><span class="cheat-desc">маленькая/большая</span></div>
+        <div class="cheat-item"><span class="cheat-code">btn-outline-*</span><span class="cheat-desc">контурная</span></div>
+        <div class="cheat-item"><span class="cheat-code">w-100</span><span class="cheat-desc">на всю ширину</span></div>
+      </div>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-title">// ТАБЛИЦА</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">table</span><span class="cheat-desc">базовая таблица</span></div>
+        <div class="cheat-item"><span class="cheat-code">table-bordered</span><span class="cheat-desc">с границами</span></div>
+        <div class="cheat-item"><span class="cheat-code">table-hover</span><span class="cheat-desc">подсветка строки</span></div>
+        <div class="cheat-item"><span class="cheat-code">table-striped</span><span class="cheat-desc">полосатая</span></div>
+        <div class="cheat-item"><span class="cheat-code">table-dark</span><span class="cheat-desc">тёмный thead</span></div>
+        <div class="cheat-item"><span class="cheat-code">table-success/danger</span><span class="cheat-desc">цвет строки</span></div>
+      </div>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-title">// ФОРМЫ</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">form-control</span><span class="cheat-desc">input / textarea</span></div>
+        <div class="cheat-item"><span class="cheat-code">form-select</span><span class="cheat-desc">выпадающий список</span></div>
+        <div class="cheat-item"><span class="cheat-code">form-label</span><span class="cheat-desc">подпись поля</span></div>
+        <div class="cheat-item"><span class="cheat-code">mb-3</span><span class="cheat-desc">отступ между полями</span></div>
+      </div>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-title">// FLEXBOX</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">d-flex</span><span class="cheat-desc">включить flex</span></div>
+        <div class="cheat-item"><span class="cheat-code">justify-content-between</span><span class="cheat-desc">по краям</span></div>
+        <div class="cheat-item"><span class="cheat-code">justify-content-center</span><span class="cheat-desc">по центру</span></div>
+        <div class="cheat-item"><span class="cheat-code">align-items-center</span><span class="cheat-desc">по вертикали</span></div>
+        <div class="cheat-item"><span class="cheat-code">gap-2 / gap-3</span><span class="cheat-desc">зазор между эл.</span></div>
+      </div>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-title">// ЦВЕТА ТЕКСТА</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">text-primary</span><span class="cheat-desc">синий</span></div>
+        <div class="cheat-item"><span class="cheat-code">text-success</span><span class="cheat-desc">зелёный</span></div>
+        <div class="cheat-item"><span class="cheat-code">text-danger</span><span class="cheat-desc">красный</span></div>
+        <div class="cheat-item"><span class="cheat-code">text-warning</span><span class="cheat-desc">жёлтый</span></div>
+        <div class="cheat-item"><span class="cheat-code">text-muted</span><span class="cheat-desc">серый/приглушённый</span></div>
+        <div class="cheat-item"><span class="cheat-code">text-white</span><span class="cheat-desc">белый</span></div>
+        <div class="cheat-item"><span class="cheat-code">fw-bold</span><span class="cheat-desc">жирный</span></div>
+      </div>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-title">// УТИЛИТЫ</div>
+      <div class="cheat-list">
+        <div class="cheat-item"><span class="cheat-code">w-100 / w-50</span><span class="cheat-desc">ширина блока</span></div>
+        <div class="cheat-item"><span class="cheat-code">h-100</span><span class="cheat-desc">высота 100%</span></div>
+        <div class="cheat-item"><span class="cheat-code">d-none</span><span class="cheat-desc">скрыть элемент</span></div>
+        <div class="cheat-item"><span class="cheat-code">rounded</span><span class="cheat-desc">скруглённые углы</span></div>
+        <div class="cheat-item"><span class="cheat-code">shadow-sm</span><span class="cheat-desc">тень</span></div>
+        <div class="cheat-item"><span class="cheat-code">text-center</span><span class="cheat-desc">выравнивание</span></div>
+        <div class="cheat-item"><span class="cheat-code">table-responsive</span><span class="cheat-desc">скролл таблицы</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Bootstrap 5 — Визуальный справочник для подготовки к демоэкзамену</p>
+  <p style="margin-top:8px;">Все примеры адаптированы под задание <span class="accent">ООО «Обувь»</span></p>
+</footer>
+
+<script>
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('scrollBar').style.width = (scrollTop / scrollHeight * 100) + '%';
+});
+</script>
+</body>
+</html>
