@@ -1,0 +1,59 @@
+body {
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+.main-card {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+}
+
+.btn-custom {
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.navbar {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.book-card {
+    border: none;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+
+.book-card:hover {
+    transform: translateY(-3px);
+}
+
+.status-approved {
+    color: green;
+    font-weight: bold;
+}
+
+.status-pending {
+    color: orange;
+    font-weight: bold;
+}
+
+.status-rejected {
+    color: red;
+    font-weight: bold;
+}
+
+@media(max-width: 390px) {
+
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}
